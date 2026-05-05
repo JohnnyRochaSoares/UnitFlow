@@ -1,9 +1,79 @@
-- name: Create Release & Upload
-  uses: softprops/action-gh-release@v1
-  with:
-    files: |
-      dist/UnitFlow-Windows.exe
-      dist/UnitFlow-Linux
-      dist/UnitFlow-macOS
-  env:
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+name: Build UnitFlow
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - run: pip install pyinstaller customtkinter pillow
+
+      - run: pyinstaller --onefile --windowed --add-data "src/assets;assets" --icon=src/assets/.ico/UnitFlow_Logo.ico --name=UnitFlow-Windows src/UnitFlow.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: dist/UnitFlow-Windows.exe
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - run: pip install pyinstaller customtkinter pillow
+
+      - run: pyinstaller --onefile --windowed --add-data "src/assets:assets" --icon=src/assets/.ico/UnitFlow_Logo.ico --name=UnitFlow-Linux src/UnitFlow.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: dist/UnitFlow-Linux
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - run: pip install pyinstaller customtkinter pillow
+
+      - run: pyinstaller --onefile --windowed --add-data "src/assets:assets" --icon=src/assets/.ico/UnitFlow_Logo.ico --name=UnitFlow-macOS src/UnitFlow.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos
+          path: dist/UnitFlow-macOS
+
+  release:
+    needs: [build-windows, build-linux, build-macos]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - run: ls -R artifacts
+
+      - name: Create Release & Upload
+        uses: softprops/action-gh-release@v1
+        with:
+          files: artifacts/**/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
