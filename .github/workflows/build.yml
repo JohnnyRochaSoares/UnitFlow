@@ -13,7 +13,7 @@ jobs:
         with:
           python-version: '3.13'
       - run: pip install pyinstaller customtkinter pillow
-      - run: pyinstaller --onefile --windowed --icon=src/assets/.ico/UnitFlow_Logo.ico --name=UnitFlow-Windows src/UnitFlow.py
+      - run: pyinstaller --onefile --windowed --add-data "src/assets;assets" --icon=src/assets/.ico/UnitFlow_Logo.ico --name=UnitFlow-Windows src/UnitFlow.py
       - uses: actions/upload-artifact@v4
         with:
           name: UnitFlow-Windows
@@ -27,7 +27,7 @@ jobs:
         with:
           python-version: '3.13'
       - run: pip install pyinstaller customtkinter pillow
-      - run: pyinstaller --onefile --windowed --icon=src/assets/.ico/UnitFlow_Logo.ico --name=UnitFlow-Linux src/UnitFlow.py
+      - run: pyinstaller --onefile --windowed --add-data "src/assets:assets" --icon=src/assets/.ico/UnitFlow_Logo.ico --name=UnitFlow-Linux src/UnitFlow.py
       - uses: actions/upload-artifact@v4
         with:
           name: UnitFlow-Linux
@@ -41,7 +41,7 @@ jobs:
         with:
           python-version: '3.13'
       - run: pip install pyinstaller customtkinter pillow
-      - run: pyinstaller --onefile --windowed --icon=src/assets/.ico/UnitFlow_Logo.ico --name=UnitFlow-macOS src/UnitFlow.py
+      - run: pyinstaller --onefile --windowed --add-data "src/assets:assets" --icon=src/assets/.ico/UnitFlow_Logo.ico --name=UnitFlow-macOS src/UnitFlow.py
       - uses: actions/upload-artifact@v4
         with:
           name: UnitFlow-macOS
