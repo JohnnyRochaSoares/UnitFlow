@@ -1,48 +1,9 @@
-name: Build UnitFlow
-
-on:
-  push:
-    branches: [ main ]
-
-jobs:
-  build-windows:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.13'
-      - run: pip install pyinstaller customtkinter pillow
-      - run: pyinstaller --onefile --windowed --add-data "src/assets;assets" --icon=src/assets/.ico/UnitFlow_Logo.ico --name=UnitFlow-Windows src/UnitFlow.py
-      - uses: actions/upload-artifact@v4
-        with:
-          name: UnitFlow-Windows
-          path: dist/UnitFlow-Windows.exe
-
-  build-linux:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.13'
-      - run: pip install pyinstaller customtkinter pillow
-      - run: pyinstaller --onefile --windowed --add-data "src/assets:assets" --icon=src/assets/.ico/UnitFlow_Logo.ico --name=UnitFlow-Linux src/UnitFlow.py
-      - uses: actions/upload-artifact@v4
-        with:
-          name: UnitFlow-Linux
-          path: dist/UnitFlow-Linux
-
-  build-macos:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.13'
-      - run: pip install pyinstaller customtkinter pillow
-      - run: pyinstaller --onefile --windowed --add-data "src/assets:assets" --icon=src/assets/.ico/UnitFlow_Logo.ico --name=UnitFlow-macOS src/UnitFlow.py
-      - uses: actions/upload-artifact@v4
-        with:
-          name: UnitFlow-macOS
-          path: dist/UnitFlow-macOS
+- name: Create Release & Upload
+  uses: softprops/action-gh-release@v1
+  with:
+    files: |
+      dist/UnitFlow-Windows.exe
+      dist/UnitFlow-Linux
+      dist/UnitFlow-macOS
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
