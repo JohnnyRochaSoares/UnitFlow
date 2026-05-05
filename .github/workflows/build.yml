@@ -20,7 +20,7 @@ jobs:
 
       - run: pip install pyinstaller customtkinter pillow
 
-      - run: pyinstaller --onefile --windowed --add-data "src/assets;assets" --icon=src/assets/UnitFlow_Logo.ico --name=UnitFlow-Windows src/UnitFlow.py
+      - run: pyinstaller --onefile --windowed --add-data "src/assets;assets" --name=UnitFlow-Windows src/UnitFlow.py
 
       - uses: actions/upload-artifact@v4
         with:
@@ -38,7 +38,7 @@ jobs:
 
       - run: pip install pyinstaller customtkinter pillow
 
-      - run: pyinstaller --onefile --windowed --add-data "src/assets:assets" --icon=src/assets/UnitFlow_Logo.ico --name=UnitFlow-Linux src/UnitFlow.py
+      - run: pyinstaller --onefile --windowed --add-data "src/assets:assets" --name=UnitFlow-Linux src/UnitFlow.py
 
       - uses: actions/upload-artifact@v4
         with:
@@ -56,7 +56,7 @@ jobs:
 
       - run: pip install pyinstaller customtkinter pillow
 
-      - run: pyinstaller --onefile --windowed --add-data "src/assets:assets" --icon=src/assets/UnitFlow_Logo.ico --name=UnitFlow-macOS src/UnitFlow.py
+      - run: pyinstaller --onefile --windowed --add-data "src/assets:assets" --name=UnitFlow-macOS src/UnitFlow.py
 
       - uses: actions/upload-artifact@v4
         with:
