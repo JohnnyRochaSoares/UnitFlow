@@ -1,8 +1,9 @@
 # ==== Imports ==== #
 import os
 import customtkinter
-from PIL import Image
- 
+import sys
+from PIL import Image 
+
 # ==== Appearance and Color ==== #
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("blue")
@@ -280,7 +281,10 @@ top_bar = customtkinter.CTkFrame(app, corner_radius=0)
 top_bar.pack(fill="x", padx=0, pady=0)
  
 # ==== Logo ==== #
-script_dir = os.path.dirname(os.path.abspath(__file__))
+if getattr(sys, 'frozen', False):
+    script_dir = sys._MEIPASS
+else:
+    script_dir = os.path.dirname(os.path.abspath(__file__))
 logo_path = os.path.join(script_dir, "assets", ".png", "UnitFlow_Logo_677x369.png")
  
 try:
