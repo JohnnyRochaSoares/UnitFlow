@@ -25,7 +25,7 @@ FONTS = {
 LANGUAGES = {
     "PT": {
         "convert":                "Converter",
-        "reset":                  "Reset",
+        "reset":                  "Reiniciar",
         "invalid":                "Inválido!",
         "speed_placeholder":      "Velocidade",
         "altitude_placeholder":   "Altitude",
