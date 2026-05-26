@@ -7,3 +7,10 @@ build/
 __pycache__/
 *.pyc
 *.pyo
+
+# ==== Text Editor Temporary Files ==== #
+*.un~
+*~
+
+# ==== Compiled Binaries ==== #
+release/
