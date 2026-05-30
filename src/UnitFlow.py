@@ -284,7 +284,8 @@ top_bar.pack(fill="x", padx=0, pady=0)
 if getattr(sys, 'frozen', False):
     script_dir = sys._MEIPASS
 else:
-    script_dir = os.path.dirname(os.path.abspath(__file__))
+    script_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+
 logo_path = os.path.join(script_dir, "assets", "png", "UnitFlow_Logo_677x369.png")
  
 try:
